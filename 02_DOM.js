@@ -1,1 +1,5 @@
-console.log("DOM");
+const domApp = function () {
+    console.log("DOM App");
+};
+
+domApp();
