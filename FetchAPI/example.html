@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Post Method</title>
+    </head>
+    <body>
+        <h1>Post Method</h1>
+        <form id="my-form">
+            <input type="text" name="title" placeholder="title" />
+            <input type="text" name="body" placeholder="body" />
+            <button type="submit">Submit</button>
+        </form>
+        <script>
+            const formEl = document.querySelector("#my-form");
+
+            function onFormSubmit(event) {
+                event.preventDefault();
+
+                const data = new FormData(event.target);
+                // method 1
+                // const dataObject = Object.fromEntries(data.entries());
+                // console.log(dataObject);
+
+                // Method 2
+                const title = data.get("title");
+                const body = data.get("body");
+                // console.log(`Name: ${name}, Email: ${email}`);
+
+                fetch("https://jsonplaceholder.typicode.com/posts", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json; charset=utf-8",
+                    },
+                    body: JSON.stringify({
+                        title: title,
+                        body: body,
+                    }),
+                })
+                    .then((response) => response.json())
+                    .then((resData) => {
+                        console.log(resData);
+                    });
+            }
+            formEl.addEventListener("submit", onFormSubmit);
+        </script>
+    </body>
+</html>

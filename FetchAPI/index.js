@@ -5,6 +5,7 @@ const apiEndPoint = "https://jsonplaceholder.typicode.com/posts";
 const getBtn = document.getElementById("getPost");
 const createBtn = document.getElementById("createPost");
 const tableEl = document.querySelector("#table");
+const formEl = document.querySelector("#form");
 
 // get posts
 // function getPosts() {
@@ -60,31 +61,58 @@ getBtn.addEventListener("click", async () => {
 });
 
 // Create Post
-const createPost = async (createPost) => {
-    try {
-        const res = await fetch(apiEndPoint, {
-            method: "POST",
-            body: JSON.stringify(createPost),
-            headers: {
-                "Content-Type": "application/json: charset=UTF-8",
-            },
-        });
-        if (res.status !== 200) {
-            throw new Error("something wrong!");
-        }
-        const newPost = await res.json();
-        return newPost;
-    } catch (error) {
-        console.log(error);
-    }
-};
 
-createBtn.addEventListener("click", async () => {
-    const newPost = {
-        title: "Pradip Title",
-        body: "new post body",
-        userId: 1,
-    };
-    const createdPost = await createPost(newPost);
-    console.log(createdPost);
-});
+// const createPost = async (data) => {
+//     try {
+//         const response = await fetch(
+//             "https://jsonplaceholder.typicode.com/posts",
+//             {
+//                 // Adding method type
+//                 method: "POST",
+//                 // Adding body or contents to send
+//                 body: JSON.stringify(data),
+//                 // Adding headers to the request
+//                 headers: {
+//                     "Content-type": "application/json; charset=UTF-8",
+//                 },
+//             }
+//         );
+
+//         // Converting to JSON
+//         const postData = await response.json();
+
+//         // Displaying results to console
+//         return postData;
+//     } catch (error) {
+//         console.log(error);
+//     }
+// };
+
+// createBtn.addEventListener("click", async () => {
+//     const data = {
+//         title: "foo",
+//         body: "bar",
+//         userId: 1,
+//     };
+//     const createdPost = await createPost(data);
+//     console.log(createdPost);
+// });
+
+fetch(apiEndPoint, {
+    method: "POST",
+    body: JSON.stringify({
+        title: "Hello World",
+    }),
+    headers: {
+        "content-type": "application/json; charset=UTF-8",
+    },
+})
+    .then((response) => {
+        console.log(response.status);
+        console.log(response.ok);
+        console.log(response.headers.get("content-type"));
+        return response.json();
+    })
+    .then((resData) => {
+        console.log(resData);
+    });
